@@ -1,11 +1,12 @@
 import express from "express";
 
 const app = express();
+app.use(express.json());
 
 const livros = [
-    { id: 1, titulo: "O Senhor dos Anéis", autor: "J.R.R. Tolkien" },
-    { id: 2, titulo: "Harry Potter e a Pedra Filosofal", autor: "J.K. Rowling" },
-    { id: 3, titulo: "O Código Da Vinci", autor: "Dan Brown" }
+    { id: 1, titulo: "O Senhor dos Anéis" },
+    { id: 2, titulo: "Harry Potter e a Pedra Filosofal" },
+    { id: 3, titulo: "O Código Da Vinci" }
 ];
 
 app.get("/", (req, res) => {
@@ -14,6 +15,11 @@ app.get("/", (req, res) => {
 
 app.get("/livros", (req, res) => {
     res.status(200).json(livros);
+});
+
+app.post("/livros", (req, res) => {
+    livros.push(req.body);
+    res.status(201).send("Livro adicionado com sucesso");
 });
 
 export default app;
